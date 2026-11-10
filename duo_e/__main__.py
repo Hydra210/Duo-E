@@ -21,6 +21,7 @@ class DuoEBot(commands.Bot):
     async def setup_hook(self) -> None:
         await self.database.initialize()
         await self.load_extension("duo_e.cogs.backups")
+        await self.load_extension("duo_e.cogs.channel_tools")
         if self.settings.dev_guild_id:
             guild = discord.Object(id=self.settings.dev_guild_id)
             self.tree.copy_global_to(guild=guild)
