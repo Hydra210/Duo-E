@@ -86,7 +86,8 @@ class ChannelTools(commands.Cog):
                 "Run this command inside a regular text channel.", ephemeral=True
             )
             return
-        if not interaction.guild.me.guild_permissions.manage_messages:
+        bot_member = interaction.guild.me
+        if bot_member is None or not channel.permissions_for(bot_member).manage_messages:
             await interaction.response.send_message(
                 "I need the Manage Messages permission in this channel.", ephemeral=True
             )
