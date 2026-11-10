@@ -70,6 +70,14 @@ class Database:
             )
             return await cursor.fetchone()
 
+    async def delete_backup(self, guild_id: int, backup_id: str) -> None:
+        async with aiosqlite.connect(self.path) as db:
+            await db.execute(
+                "DELETE FROM backups WHERE guild_id = ? AND backup_id = ?",
+                (guild_id, backup_id),
+            )
+            await db.commit()
+
     async def add_audit_event(
         self, guild_id: int, actor_id: int, action: str, details: str, created_at: str
     ) -> None:
