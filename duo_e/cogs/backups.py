@@ -67,6 +67,7 @@ class Backups(commands.Cog):
         await view.wait()
         if view.confirmed:
             await self.storage.delete(row[1])
+            await self.database.delete_backup(interaction.guild_id, backup_id)
             from datetime import datetime, timezone
             await self.database.add_audit_event(
                 interaction.guild_id, interaction.user.id, "backup.delete",
